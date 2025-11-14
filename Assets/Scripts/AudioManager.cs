@@ -1,0 +1,23 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class AudioManager : MonoBehaviour
+{
+    public Slider volumeSlider;
+
+    void Start()
+    {
+        float savedVolume = PlayerPrefs.GetFloat("volume", 1f);
+        volumeSlider.value = savedVolume;
+        AudioListener.volume = savedVolume;
+
+        volumeSlider.onValueChanged.AddListener(SetVolume);
+    }
+
+    public void SetVolume(float value)
+    {
+        AudioListener.volume = value;
+        PlayerPrefs.SetFloat("volume", value);
+    }
+}
